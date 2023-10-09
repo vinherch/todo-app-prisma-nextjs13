@@ -1,7 +1,11 @@
-import { useSearchParams } from "react-router-dom";
+"use client";
 
-const SortTodos = ({ todos, setTodos }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
+import { useContext } from "react";
+import TodoContext from "@/context/TodoContext";
+
+const SortTodos = () => {
+  //const [searchParams, setSearchParams] = useSearchParams();
+  const { todos, setTodos } = useContext(TodoContext);
 
   const selectOptions = [
     { value: "titleAsc", label: "Title Ascending" },
@@ -36,16 +40,17 @@ const SortTodos = ({ todos, setTodos }) => {
   };
 
   return (
-    <div>
-      <div>
-        <select onChange={(e) => sortHandler(e.target.value)} multiple={false}>
-          {selectOptions.map(({ value, label }) => (
-            <option key={value} value={value}>
-              {label}
-            </option>
-          ))}
-        </select>
-      </div>
+    <div className="dropdown">
+      <label tabIndex={0} className="btn btn-secondary w-full text-white lg:w-auto">
+        Sort
+      </label>
+      <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-full lg:w-auto">
+        {selectOptions.map(({ value, label }) => (
+          <li key={value} value={value}>
+            <a>{label}</a>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

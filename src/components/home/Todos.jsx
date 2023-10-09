@@ -1,29 +1,26 @@
-import { useContext } from "react";
-import { Link } from "react-router-dom";
-import Todo from "./Todo";
-import SortTodos from "./SortTodos";
-import FilterTodos from "./FilterTodos";
-import TodoContext from "../../../context/TodoContext";
+import ControlTodos from "./ControlTodos";
+import TodoList from "./TodoList";
+import { PrismaClient } from "@prisma/client";
 
-const Todos = () => {
-  const { todos, searchTodo } = useContext(TodoContext);
+const getTodos = async () => {
+  const prisma = new PrismaClient();
+  const data = await prisma.todo.findMany({
+    where: {
+      userId: 1,
+    },
+  });
+  return data;
+};
+
+const Todos = async () => {
+  //const { todos, searchTodo } = useContext(TodoContext);
+  const todos = await getTodos();
   return (
     <div>
-      <SortTodos />
-      <FilterTodos />
-      <Link to={"/new"}>NEW</Link>
-      <ul>
-        {todos.length > 0 &&
-          todos
-            .filter((e) => {
-              return e.title.toLowerCase().includes(searchTodo) || e.description.toLowerCase().includes(searchTodo);
-            })
-            .map(({ id, title, description, tags, created, dueDate, isChecked }) => (
-              <li key={id}>
-                <Todo id={id} title={title} description={description} tags={tags} created={created} dueDate={dueDate} isChecked={isChecked} />
-              </li>
-            ))}
-      </ul>
+      <ControlTodos />
+      <div className="mt-3 border-t border-t-gray-300 ">
+        <TodoList todos={todos} />
+      </div>
     </div>
   );
 };

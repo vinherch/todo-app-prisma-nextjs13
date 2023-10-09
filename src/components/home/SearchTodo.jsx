@@ -1,16 +1,12 @@
+"use client";
+
+import TodoContext from "@/context/TodoContext";
 import { useContext } from "react";
-import TodoContext from "../../../context/TodoContext";
 
 const SearchTodo = () => {
   const { searchTodo, setSearchTodo } = useContext(TodoContext);
 
-  return (
-    <div>
-      <div>
-        <input type="text" onChange={(e) => setSearchTodo(e.target.value)} value={searchTodo} placeholder="Search" />
-      </div>
-    </div>
-  );
+  return <input type="text" className="input input-bordered w-full" onChange={(e) => setSearchTodo(e.target.value)} value={searchTodo} placeholder="Search" />;
 };
 
 export default SearchTodo;
