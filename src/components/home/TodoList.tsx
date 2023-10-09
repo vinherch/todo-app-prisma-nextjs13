@@ -4,8 +4,21 @@ import { useContext } from "react";
 import TodoContext from "@/context/TodoContext";
 import Todo from "./Todo";
 
-const TodoList = ({ todos }) => {
+type TodoItem = { id: number; userId: number; title: string; description: string; checked: boolean; created: Date; updated: Date };
+
+type TodoListProps = {
+  todos: TodoItem[];
+  sort: string;
+};
+
+//TODO
+//Sort TODOS with "sort" query string value (TodoListProps)
+
+const TodoList = ({ todos, sort }: TodoListProps) => {
   const { searchTodo } = useContext(TodoContext);
+
+  console.log(sort);
+
   return (
     <div>
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5 mt-5">
@@ -13,12 +26,12 @@ const TodoList = ({ todos }) => {
           <p className="text-center pt-2 pb-2">No Todo's yet.</p>
         ) : (
           todos
-            .filter((e) => {
+            .filter((e: TodoItem) => {
               return e.title.toLowerCase().includes(searchTodo) || e.description.toLowerCase().includes(searchTodo);
             })
-            .map(({ id, title, description, tags, created, dueDate, isChecked }) => (
+            .map(({ id, userId, title, description, checked, created, updated }: TodoItem) => (
               <li key={id}>
-                <Todo id={id} title={title} description={description} tags={tags} created={created} dueDate={dueDate} isChecked={isChecked} />
+                <Todo id={id} userId={userId} title={title} description={description} created={created} updated={updated} checked={checked} />
               </li>
             ))
         )}

@@ -5,7 +5,9 @@ import TodoContext from "@/context/TodoContext";
 import { getDateTime } from "@/utils/dataTimeHelper";
 import TodoTag from "./TodoTag";
 
-const Todo = ({ id, title, description, created, dueDate }) => {
+type TodoProps = { id: number; userId: number; title: string; description: string; checked: boolean; created: Date; updated: Date };
+
+const Todo = ({ id, userId, title, description, checked, created, updated }: TodoProps) => {
   const [isChecked, setIsChecked] = useState(false);
   const { deleteTodo, todoTags } = useContext(TodoContext);
   return (
@@ -22,7 +24,7 @@ const Todo = ({ id, title, description, created, dueDate }) => {
             <label htmlFor="completed" className="text-sm">
               Completed
             </label>
-            <input type="checkbox" checked={isChecked} id="completed" className="checkbox" onChange={() => setIsChecked(!isChecked)} />
+            <input type="checkbox" checked={checked} id="completed" className="checkbox" onChange={() => setIsChecked(!isChecked)} />
           </div>
           <button className="btn btn-warning btn-sm" onClick={() => deleteTodo(id)}>
             Delete
@@ -38,10 +40,14 @@ const Todo = ({ id, title, description, created, dueDate }) => {
               <p>Created: </p>
               <span>{getDateTime(created)}</span>
             </div>
-            <div className="flex justify-end gap-1">
-              <p>Due Date: </p>
-              <span>{getDateTime(dueDate)}</span>
+            <div className="flex justify-end items-end gap-1">
+              <p>Updated: </p>
+              <span>{getDateTime(updated)}</span>
             </div>
+            {/* <div className="flex justify-end gap-1">
+              <p>Due Date: </p>
+              {/* <span>{getDateTime(dueDate)}</span> 
+              </div> */}
           </div>
         </div>
       </div>

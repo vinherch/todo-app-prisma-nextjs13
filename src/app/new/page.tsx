@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { PrismaClient } from "@prisma/client";
 import { validateTodo } from "@/utils/formValidation";
+import { redirect } from "next/navigation";
 
 const createNewTodo = async (formData: FormData) => {
   "use server";
@@ -25,6 +26,7 @@ const createNewTodo = async (formData: FormData) => {
     } catch (error: any) {
       throw new Error(error);
     }
+    redirect("/home");
   }
 };
 
