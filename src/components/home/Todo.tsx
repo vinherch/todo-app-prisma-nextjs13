@@ -2,10 +2,21 @@
 
 import { useContext, useState } from "react";
 import TodoContext from "@/context/TodoContext";
-import { getDateTime } from "@/utils/dataTimeHelper";
 import TodoTag from "./TodoTag";
 
-type TodoProps = { id: number; userId: number; title: string; description: string; checked: boolean; created: Date; updated: Date };
+type TodoProps = {
+  id: number;
+  userId: number;
+  title: string;
+  description: string;
+  checked: boolean;
+  created: string;
+  updated: string;
+};
+
+//TODO
+//delete todo (replace delete fn in state with delete fetch)
+//checked toogle
 
 const Todo = ({ id, userId, title, description, checked, created, updated }: TodoProps) => {
   const [isChecked, setIsChecked] = useState(false);
@@ -21,10 +32,10 @@ const Todo = ({ id, userId, title, description, checked, created, updated }: Tod
         </p>
         <div className="card-actions w-full justify-end items-end">
           <div className="flex justify-center gap-2">
-            <label htmlFor="completed" className="text-sm">
+            <label htmlFor={`completed-${id}`} className="text-sm">
               Completed
             </label>
-            <input type="checkbox" checked={checked} id="completed" className="checkbox" onChange={() => setIsChecked(!isChecked)} />
+            <input type="checkbox" checked={checked} id={`completed-${id}`} className="checkbox" onChange={() => setIsChecked(!isChecked)} />
           </div>
           <button className="btn btn-warning btn-sm" onClick={() => deleteTodo(id)}>
             Delete
@@ -38,11 +49,11 @@ const Todo = ({ id, userId, title, description, checked, created, updated }: Tod
           <div className="text-xs">
             <div className="flex justify-end items-end gap-1">
               <p>Created: </p>
-              <span>{getDateTime(created)}</span>
+              <span>{created}</span>
             </div>
             <div className="flex justify-end items-end gap-1">
               <p>Updated: </p>
-              <span>{getDateTime(updated)}</span>
+              <span>{updated}</span>
             </div>
             {/* <div className="flex justify-end gap-1">
               <p>Due Date: </p>
