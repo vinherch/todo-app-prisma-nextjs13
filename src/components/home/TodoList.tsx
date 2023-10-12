@@ -4,20 +4,32 @@ import { useContext } from "react";
 import TodoContext from "@/context/TodoContext";
 import Todo from "./Todo";
 
-type TodoItem = { id: number; userId: number; title: string; description: string; checked: boolean; created: Date; updated: Date };
+type TodoItem = { id: number; userId: number; title: string; description: string; checked: boolean; created: string; updated: string };
 
 type TodoListProps = {
   todos: TodoItem[];
   sort: string;
 };
 
-//TODO
-//Sort TODOS with "sort" query string value (TodoListProps)
-
 const TodoList = ({ todos, sort }: TodoListProps) => {
   const { searchTodo } = useContext(TodoContext);
 
-  console.log(sort);
+  const sortTodos = (a: TodoItem, b: TodoItem) => {
+    switch (sort) {
+      case "titleAsc":
+        return a.title.toLowerCase() < b.title.toLowerCase() ? 1 : -1;
+      case "titleDesc":
+        return a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1;
+      case "createdAsc":
+        return a.created > b.created ? -1 : 1!;
+      case "createdDesc":
+        return a.created < b.created ? -1 : 1!;
+      case "due":
+      //TODO
+      default:
+        return 0;
+    }
+  };
 
   return (
     <div>
@@ -29,6 +41,7 @@ const TodoList = ({ todos, sort }: TodoListProps) => {
             .filter((e: TodoItem) => {
               return e.title.toLowerCase().includes(searchTodo) || e.description.toLowerCase().includes(searchTodo);
             })
+            .sort((a, b) => sortTodos(a, b))
             .map(({ id, userId, title, description, checked, created, updated }: TodoItem) => (
               <li key={id}>
                 <Todo id={id} userId={userId} title={title} description={description} created={created} updated={updated} checked={checked} />
