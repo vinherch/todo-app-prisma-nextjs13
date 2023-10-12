@@ -1,12 +1,6 @@
-"use client";
-
-import { useContext } from "react";
 import Link from "next/link";
-import TodoContext from "@/context/TodoContext";
 
 const SortTodos = () => {
-  // const { todos, setTodos } = useContext(TodoContext);
-
   const selectOptions = [
     { value: "titleAsc", label: "Title Ascending" },
     { value: "titleDesc", label: "Title Descending" },
@@ -14,30 +8,6 @@ const SortTodos = () => {
     { value: "createdDesc", label: "Oldest Elements" },
     { value: "due", label: "Due Date" },
   ];
-
-  // const sortHandler = (value) => {
-  //   setSearchParams({ sort: value });
-  //   todos.length > 0 && sort(value);
-  // };
-
-  // const sort = (value) => {
-  //   switch (value) {
-  //     case "titleAsc":
-  //       setTodos([...todos].sort((a, b) => a.title.toLowerCase() < b.title.toLowerCase() && -1));
-  //       break;
-  //     case "titleDesc":
-  //       setTodos([...todos].sort((a, b) => a.title.toLowerCase() > b.title.toLowerCase() && -1));
-  //       break;
-  //     case "createdAsc":
-  //       setTodos([...todos].sort((a, b) => a.created > b.created && -1));
-  //       break;
-  //     case "createdDesc":
-  //       setTodos([...todos].sort((a, b) => a.created < b.created && -1));
-  //       break;
-  //     case "due":
-  //     //TODO
-  //   }
-  // };
 
   return (
     <div className="dropdown">
