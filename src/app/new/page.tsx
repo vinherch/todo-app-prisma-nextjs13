@@ -15,7 +15,7 @@ const createNewTodo = async (formData: FormData) => {
   if (validated.success) {
     try {
       const prisma = new PrismaClient();
-      const result = await prisma.todo.create({
+      await prisma.todo.create({
         data: {
           userId: 1,
           title: validated.data.title,
@@ -34,7 +34,7 @@ const NewTodo = () => {
   return (
     <div className="flex min-h-screen justify-center items-center flex-col p-5 gap-3">
       <div className="mb-24">
-        <Image src={"/newTodo.svg"} alt="Illustration new Todo" height={600} width={600} />
+        <Image src={"/newTodo.svg"} alt="Illustration new Todo" priority={true} height={600} width={600} />
       </div>
       <form className="flex flex-col gap-3 w-full lg:w-1/2" action={createNewTodo}>
         <div className="form-control">
