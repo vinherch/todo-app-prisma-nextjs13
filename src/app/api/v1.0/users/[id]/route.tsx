@@ -11,7 +11,7 @@ const prisma = new PrismaClient();
 
 export const GET = async (req: NextRequest, { params: { id } }: Props) => {
   try {
-    const data = await prisma.todo.findFirst({
+    const data = await prisma.user.findFirst({
       where: {
         id: Number(id),
       },
@@ -25,8 +25,8 @@ export const GET = async (req: NextRequest, { params: { id } }: Props) => {
 
 export const PUT = async (req: NextRequest, { params: { id } }: Props) => {
   try {
-    //Check if todo item does exist
-    const data = await prisma.todo.findFirst({
+    //Check if user does exist
+    const data = await prisma.user.findFirst({
       where: {
         id: Number(id),
       },
@@ -34,16 +34,16 @@ export const PUT = async (req: NextRequest, { params: { id } }: Props) => {
     if (!data) return NextResponse.json({ msg: "Not Found" }, { status: 404 });
 
     //Get data from json
-    const { userId, title, description, checked } = await req.json();
-    const updated = await prisma.todo.update({
+    const { email, password, firstname, lastname } = await req.json();
+    const updated = await prisma.user.update({
       where: {
         id: Number(id),
       },
       data: {
-        userId,
-        title,
-        description,
-        checked,
+        email,
+        firstname,
+        lastname,
+        password,
       },
     });
     return NextResponse.json(updated, { status: 200 });
@@ -54,14 +54,15 @@ export const PUT = async (req: NextRequest, { params: { id } }: Props) => {
 
 export const DELETE = async (req: NextRequest, { params: { id } }: Props) => {
   try {
-    //Check if todo item does exist
-    const data = await prisma.todo.findFirst({
+    //Check if user does exist
+    const data = await prisma.user.findFirst({
       where: {
         id: Number(id),
       },
     });
     if (!data) return NextResponse.json({ msg: "Not Found" }, { status: 404 });
-    const deleted = await prisma.todo.delete({
+
+    const deleted = await prisma.user.delete({
       where: {
         id: Number(id),
       },
