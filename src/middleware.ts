@@ -2,12 +2,10 @@ import { NextResponse, NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
   if (request.cookies.has("token")) {
-    console.log("to check token validity");
     if (request.nextUrl.pathname !== "/home") {
       return NextResponse.redirect(new URL("/home", request.url));
     }
   }
-  console.log("no token");
   return NextResponse.next();
 }
 

@@ -14,20 +14,21 @@ const submit = async (formData: FormData) => {
   const response = await fetch(`${process.env.HOST_DEV}/api/v1.0/users/?email=${mail}`, {
     cache: "no-store",
   });
-  if (!response.ok) {
+  if (response.ok) {
+    //Get userdata from reponse
+    const { id, email, password, firstname, lastname, created, updated } = await response.json();
+    //Check user password
+    const passwordMatch = await compare(passwd?.toString()!, password);
+    if (passwordMatch) {
+      //Create JWT
+      const token = await signJWT({ id, email, firstname, lastname, created, updated });
+      cookies().set("token", token);
+      redirect("/home");
+    }
+  } else {
     //TODO - Render Failure (user not found)
     console.log("Wrong username or password");
     return;
-  }
-  //Get userdata from reponse
-  const { id, email, password, firstname, lastname, created, updated } = await response.json();
-  //Check user password
-  const passwordMatch = await compare(passwd?.toString()!, password);
-  if (passwordMatch) {
-    //Create JWT
-    const token = await signJWT({ id, email, firstname, lastname, created, updated });
-    cookies().set("token", token);
-    redirect("/home");
   }
 };
 
