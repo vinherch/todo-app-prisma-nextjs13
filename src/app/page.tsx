@@ -11,7 +11,7 @@ const submit = async (formData: FormData) => {
   if (passwd?.length === 0) return;
 
   //Fetch user from api
-  const response = await fetch(`${process.env.HOST_DEV}/api/v1.0/auth/?email=${mail}`, {
+  const response = await fetch(`${process.env.HOST_DEV}/api/v1.0/users/?email=${mail}`, {
     cache: "no-store",
   });
   if (!response.ok) {
