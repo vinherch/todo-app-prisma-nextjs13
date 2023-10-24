@@ -9,7 +9,7 @@ type TodosProps = {
 type Todos = { id: number; userId: number; title: string; description: string; checked: boolean; created: Date; updated: Date }[];
 
 const getTodos = async () => {
-  const response = await fetch("http://localhost:3000/api/v1.0/todos", {
+  const response = await fetch(`${process.env.HOST_DEV}/api/v1.0/todos`, {
     cache: "no-store",
   });
   return await response.json();

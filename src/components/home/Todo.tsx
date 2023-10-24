@@ -2,6 +2,7 @@
 
 import { useContext, useState } from "react";
 import TodoContext from "@/context/TodoContext";
+import DeleteTodoBtn from "./DeleteTodoBtn";
 import TodoTag from "./TodoTag";
 
 type TodoProps = {
@@ -15,7 +16,6 @@ type TodoProps = {
 };
 
 //TODO
-//delete todo (replace delete fn in state with delete fetch)
 //checked toogle
 
 const Todo = ({ id, userId, title, description, checked, created, updated }: TodoProps) => {
@@ -37,9 +37,7 @@ const Todo = ({ id, userId, title, description, checked, created, updated }: Tod
             </label>
             <input type="checkbox" checked={checked} id={`completed-${id}`} className="checkbox" onChange={() => setIsChecked(!isChecked)} />
           </div>
-          <button className="btn btn-warning btn-sm" onClick={() => deleteTodo(id)}>
-            Delete
-          </button>
+          <DeleteTodoBtn todoId={id} />
         </div>
         <div className="flex w-full">
           <div className="flex flex-1">
