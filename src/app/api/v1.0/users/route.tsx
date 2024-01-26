@@ -1,7 +1,5 @@
-import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-
-const prisma = new PrismaClient();
+import prisma from "@/db/prismaClient";
 
 //Get all users / Get user by e-mail
 export const GET = async (req: NextRequest, res: NextResponse) => {
