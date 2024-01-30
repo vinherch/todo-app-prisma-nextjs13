@@ -37,7 +37,7 @@ export default function LoginForm() {
               <FormButton text="Login" />
             </div>
           </form>
-          {state && state.error && <Alert message={state.message!} alertType="error" />}
+          {state && state.error && <Alert message={state.message!} alertType="error" alertState={state} />}
         </div>
       </div>
     </div>
