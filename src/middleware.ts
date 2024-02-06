@@ -12,7 +12,7 @@ export async function middleware(request: NextRequest) {
     //Verify JWT
     const verified = await verifyJWT(token);
 
-    if (request.nextUrl.pathname !== "/home") {
+    if (request.nextUrl.pathname === "/") {
       return NextResponse.redirect(new URL("/home", request.url));
     }
     return NextResponse.next();
