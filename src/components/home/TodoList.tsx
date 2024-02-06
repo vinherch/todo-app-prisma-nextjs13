@@ -33,11 +33,11 @@ const TodoList = ({ todos, sort }: TodoListProps) => {
 
   return (
     <div>
-      <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5 mt-5">
-        {todos.length === 0 ? (
-          <p className="text-center pt-2 pb-2">No Todo's yet.</p>
-        ) : (
-          todos
+      {todos.length === 0 ? (
+        <p className="text-center pt-5 pb-2">No Todo's yet.</p>
+      ) : (
+        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5 mt-5">
+          {todos
             .filter((e: TodoItem) => {
               return e.title.toLowerCase().includes(searchTodo) || e.description.toLowerCase().includes(searchTodo);
             })
@@ -46,9 +46,9 @@ const TodoList = ({ todos, sort }: TodoListProps) => {
               <li key={id}>
                 <Todo id={id} userId={userId} title={title} description={description} created={created} updated={updated} checked={checked} />
               </li>
-            ))
-        )}
-      </ul>
+            ))}
+        </ul>
+      )}
     </div>
   );
 };
