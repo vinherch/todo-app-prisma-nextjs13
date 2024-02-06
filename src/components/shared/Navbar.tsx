@@ -1,5 +1,5 @@
 import Link from "next/link";
-import UserMenu from "../home/UserMenu";
+import UserMenu from "./UserMenu";
 
 const Navbar = () => {
   return (
