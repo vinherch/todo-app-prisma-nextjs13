@@ -1,13 +1,14 @@
 "use client";
 
-import { experimental_useFormStatus } from "react-dom";
+import { experimental_useFormStatus as useFormStatus } from "react-dom";
 
 type FormButtonProps = {
   text: string;
 };
 
 const FormButton = ({ text }: FormButtonProps) => {
-  const { pending } = experimental_useFormStatus();
+  const { pending } = useFormStatus();
+
   return <button className="btn btn-primary">{pending ? "Submitting" : text}</button>;
 };
 
