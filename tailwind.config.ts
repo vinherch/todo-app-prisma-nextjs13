@@ -12,7 +12,21 @@ const config: Config = {
   },
   plugins: [require("daisyui")],
   daisyui: {
-    themes: ["autumn"],
+    themes: [
+      {
+        custom: {
+          primary: "#8800ff",
+          secondary: "#a78bfa",
+          accent: "#ff0000",
+          neutral: "#312e81",
+          "base-100": "#f3f4f6",
+          info: "#00e1ff",
+          success: "#00ab80",
+          warning: "#fde047",
+          error: "#ff2d47",
+        },
+      },
+    ],
   },
 };
 export default config;
