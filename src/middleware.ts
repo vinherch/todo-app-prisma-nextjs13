@@ -1,9 +1,17 @@
 import { NextResponse, NextRequest } from "next/server";
+import { verifyJWT } from "./utils/jwtHelper";
 
-export function middleware(request: NextRequest) {
-  if (request.cookies.has("token")) {
-    //TODO
-    //Token verify - JWT
+export async function middleware(request: NextRequest) {
+  if (request.cookies.has("auth-token")) {
+    //Check for empty value in cookie. (deleted cookie)
+    if (request.cookies.get("auth-token")?.value === "") return NextResponse.next();
+
+    //Get JWT
+    const token = request.cookies.get("auth-token")!.value;
+
+    //Verify JWT
+    const verified = await verifyJWT(token);
+
     if (request.nextUrl.pathname !== "/home") {
       return NextResponse.redirect(new URL("/home", request.url));
     }
