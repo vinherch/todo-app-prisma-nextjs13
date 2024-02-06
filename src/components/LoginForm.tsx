@@ -1,11 +1,13 @@
 "use client";
-import { experimental_useFormState } from "react-dom";
-import { handleFormData } from "@/actions/_actions";
+import { experimental_useFormState as useFormState } from "react-dom";
+import { handleFormData } from "@/actions/actions";
 import FormButton from "./shared/FormButton";
 import Alert from "./shared/Alert";
+import { useRef } from "react";
 
 export default function LoginForm() {
-  const [state, formAction] = experimental_useFormState(handleFormData, null);
+  const [state, formAction] = useFormState(handleFormData, null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   return (
     <div className="hero min-h-screen">
@@ -15,7 +17,14 @@ export default function LoginForm() {
           <p className="py-6">Login to create and manage your Todo's.</p>
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-          <form className="card-body" action={formAction}>
+          <form
+            className="card-body"
+            action={(formData: FormData) => {
+              formAction(formData);
+              formRef.current?.reset();
+            }}
+            ref={formRef}
+          >
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
