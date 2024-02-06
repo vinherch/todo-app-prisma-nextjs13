@@ -6,7 +6,7 @@ This is a simple app build with Next.js, Tailwind and Prisma for managing todo's
 
 ## Usage
 
-Rename the example.env & example.env.local file to .env and env.local and enter the required data like the mysql connections string or the token secret.
+Rename the example.env & example.env.local file to .env and env.local and enter the required data like the mysql connection string or the token secret.
 
 Install dependencies
 
