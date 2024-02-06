@@ -15,7 +15,13 @@ export async function middleware(request: NextRequest) {
     if (request.nextUrl.pathname !== "/home") {
       return NextResponse.redirect(new URL("/home", request.url));
     }
+    return NextResponse.next();
   }
+
+  if (request.nextUrl.pathname !== "/") {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
+
   return NextResponse.next();
 }
 
