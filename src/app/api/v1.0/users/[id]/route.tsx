@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/db/prismaClient";
 import { NextRequest, NextResponse } from "next/server";
 
 type Props = {
@@ -6,8 +6,6 @@ type Props = {
     id: string;
   };
 };
-
-const prisma = new PrismaClient();
 
 export const GET = async (req: NextRequest, { params: { id } }: Props) => {
   try {
