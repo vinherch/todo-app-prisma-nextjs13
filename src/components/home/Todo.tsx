@@ -34,10 +34,16 @@ const Todo = ({ id, userId, title, description, checked, created, updated }: Tod
               {description}
             </div>
           </div>
-          <div className="card-actions w-full p-1">
-            <div className="flex-1 h-full">
-              <input type="checkbox" checked={checked} id={`completed-${id}`} onChange={() => setIsChecked(!isChecked)} />
-              <label htmlFor={`completed-${id}`} className="text-xs ml-2">
+          <div className="card-actions w-full">
+            <div className="flex-1 h-full flex content-end">
+              <input
+                type="checkbox"
+                className="checkbox border border-gray-600 mt-auto mb-auto"
+                checked={isChecked}
+                id={`completed-${id}`}
+                onChange={() => setIsChecked(!isChecked)}
+              />
+              <label htmlFor={`completed-${id}`} className="text-xs ml-2 m-auto">
                 Completed
               </label>
             </div>
@@ -45,13 +51,13 @@ const Todo = ({ id, userId, title, description, checked, created, updated }: Tod
               <DeleteTodoBtn todoId={id} />
             </div>
           </div>
-          <div className="flex w-full p-1">
+          <div className="flex w-full">
             <div className="flex flex-1">
               <p className="text-xs">Tags: </p>
               {/* {todoTags.map((e) => e.id === id && e.tags.map((t) => <TodoTag key={t} value={t} />))} */}
             </div>
           </div>
-          <div className="text-xs text-gray-400 p-1">
+          <div className="text-xs text-gray-400">
             <div className="flex gap-1">
               <p>Created: </p>
               <span>{getDateTime(created)}</span>
