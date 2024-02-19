@@ -4,6 +4,7 @@ import { compare } from "@/utils/passwordHelper";
 import { cookies } from "next/headers";
 import { signJWT } from "@/utils/jwtHelper";
 import { redirect } from "next/navigation";
+import { validateEmail } from "@/utils/formValidation";
 
 //Server Actions
 
@@ -35,4 +36,13 @@ export const handleFormData = async (state: any, formData: FormData) => {
 export const deleteCookie = async (name: string) => {
   cookies().delete(name);
   redirect("/");
+};
+
+export const handlePasswordReset = async (state: any, formData: FormData) => {
+  //Get form data / Validation
+  const email: FormDataEntryValue = formData.get("email") || "";
+  const validated = validateEmail(email.toString());
+  validated.success && redirect("/");
+
+  //Action Password Reset - TODO
 };
