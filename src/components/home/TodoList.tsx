@@ -1,7 +1,3 @@
-"use client";
-
-import { useContext } from "react";
-import TodoContext from "@/context/TodoContext";
 import Todo from "./Todo";
 
 type TodoItem = { id: number; userId: number; title: string; description: string; checked: boolean; created: string; updated: string };
@@ -9,11 +5,10 @@ type TodoItem = { id: number; userId: number; title: string; description: string
 type TodoListProps = {
   todos: TodoItem[];
   sort: string;
+  search: string;
 };
 
-const TodoList = ({ todos, sort }: TodoListProps) => {
-  const { searchTodo } = useContext(TodoContext);
-
+const TodoList = ({ todos, sort, search }: TodoListProps) => {
   const sortTodos = (a: TodoItem, b: TodoItem) => {
     switch (sort) {
       case "titleAsc":
@@ -30,7 +25,6 @@ const TodoList = ({ todos, sort }: TodoListProps) => {
         return 0;
     }
   };
-
   return (
     <div>
       {todos.length === 0 ? (
@@ -39,7 +33,8 @@ const TodoList = ({ todos, sort }: TodoListProps) => {
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5 mt-5">
           {todos
             .filter((e: TodoItem) => {
-              return e.title.toLowerCase().includes(searchTodo) || e.description.toLowerCase().includes(searchTodo);
+              if (!search) return e.title.toLowerCase().includes("") || e.description.toLowerCase().includes("");
+              return e.title.toLowerCase().includes(search.toLocaleLowerCase()) || e.description.toLowerCase().includes(search.toLocaleLowerCase());
             })
             .sort((a, b) => sortTodos(a, b))
             .map(({ id, userId, title, description, checked, created, updated }: TodoItem) => (

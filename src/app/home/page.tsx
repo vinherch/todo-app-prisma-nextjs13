@@ -1,7 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import Navbar from "@/components/shared/Navbar";
-import SearchTodo from "@/components/home/SearchTodo";
 import Todos from "@/components/home/Todos";
 import { getLoggedInUser } from "@/actions/actions";
 
@@ -39,22 +36,14 @@ const getUserData = async () => {
   return { id, email, firstname, lastname, created, updated, todos };
 };
 
-const Home = async ({ searchParams: { sort } }) => {
-  const { id, email, firstname, lastname, created, updated, todos }: UserData = await getUserData();
+const Home = async ({ searchParams: { sort, q } }) => {
+  const { id, todos }: UserData = await getUserData();
 
   return (
     <div className="hero min-h-screen p-5">
       <div className="w-full xl:w-4/5 2xl:w-3/4">
-        <div className="w-full flex gap-3 flex-col xl:flex-row mb-20">
-          <SearchTodo />
-          <div className="w-full lg:w-auto">
-            <Link href={"/new"} className="btn btn-primary text-white pl-5 pr-5 w-full">
-              New
-            </Link>
-          </div>
-        </div>
         <div className="mt-5">
-          <Todos userId={id} sort={sort} todos={todos} />
+          <Todos userId={id} sort={sort} todos={todos} search={q} />
         </div>
       </div>
     </div>
