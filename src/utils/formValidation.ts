@@ -13,6 +13,15 @@ export const validateEmail = (email: string) => {
   return z.string().email().safeParse(email);
 };
 
+export const validateLoginUser = (email: string, password: string) => {
+  return z
+    .object({
+      email: z.string().email().min(4),
+      password: z.string().min(7).max(64),
+    })
+    .safeParse({ email, password });
+};
+
 export const validateNewUser = (user: { email: string; firstname: string; lastname: string; password: string }) => {
   return z
     .object({
